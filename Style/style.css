@@ -1,0 +1,16 @@
+body {
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #fff;
+}
+header {
+  background-color: black;
+  color: lightgreen;
+  padding: 20px;
+  text-align: center;
+}
+div.container {
+  width: 90%;
+  margin: auto;
+  padding: 10px;
+}

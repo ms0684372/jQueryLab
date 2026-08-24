@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>jQuery</h1>
+    </header>
+    <div class="container" id="container">
+      <h3 id="target">target</h3>
+      <h3 id="jq">jq</h3>
+      <h3 class="jqAll">jqAll</h3>
+      <h3 class="jqAll">jqAll</h3>
+      <h3 class="jqAll">jqAll</h3>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      // jQuery(document).ready(() => {
+      //   console.log("ready~ go!");
+      // });
+      $(function () {
+        console.log("ready go!!");
+      });
+
+      const jq = $("#jq");
+      $("#jq").on("mouseenter", function () {
+        $("#jq").css("color", "lightgreen");
+      });
+
+      jq.on("mouseleave", function () {
+        jq.css("color", "black").css("background-color", "green");
+      });
+
+      const jqAll = $(".jqAll");
+      jqAll.on("mouseenter", function () {
+        $(this).css("color", "blue");
+      });
+      jqAll.on("mouseleave", (event) => {
+        event.target.style.color = "black";
+      });
+
+      const target = document.getElementById("target");
+      const origColor = target.style.color;
+      target.addEventListener("mouseenter", (event) => {
+        event.target.style.color = "Red";
+      });
+      target.addEventListener("mouseleave", function (event) {
+        event.target.style.color = origColor;
+      });
+    </script>
+  </body>
+</html>

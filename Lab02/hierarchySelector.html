@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Hierarchy Selector</h1>
+    </header>
+    <div class="container">
+      <div id="div">
+        <p>child p</p>
+        <div id="d2">
+          <p>descendant</p>
+          <p>descendant</p>
+        </div>
+        <p>child p</p>
+      </div>
+      <p>next p</p>
+      <p>sibling p</p>
+      <hr />
+      <button id="gt">div>p</button>
+      <button id="space">div p</button>
+      <button id="plus">div+p</button>
+      <button id="wave">div~p</button>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        $("#gt").on("click", () => {
+          console.log("gt");
+          //#div 底下第一層的p
+          $("#div>p").css("background", "pink");
+        });
+
+        $("#space").on("click", () => {
+          //#div 底下所有的p
+          $("#div p").css("background", "red");
+        });
+
+        $("#plus").on("click", () => {
+          //#div 最靠近的p
+          $("#div+p").css("background", "blue");
+        });
+
+        $("#wave").on("click", () => {
+          //#div 同階層的p
+          $("#div~p").css("background", "yellow");
+        });
+      });
+    </script>
+  </body>
+</html>

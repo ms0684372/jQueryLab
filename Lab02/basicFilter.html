@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Basic Filter</h1>
+    </header>
+    <div class="container">
+      <ul>
+        <li>FUEN54</li>
+        <li></li>
+        <li id="list">哇哈哈</li>
+        <li class="list">hey</li>
+        <li class="list">a123456</li>
+        <li class="list">987654321</li>
+        <li class="not">ccccc</li>
+      </ul>
+
+      <ul>
+        <li>FUEN54</li>
+        <li></li>
+        <li id="list">哇哈哈</li>
+        <li class="list">hey</li>
+        <li class="list">a123456</li>
+        <li class="list">987654321</li>
+        <li class="not">ccccc</li>
+      </ul>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quidem labore
+        nesciunt provident rem facilis. Saepe reiciendis suscipit voluptate et
+        molestiae explicabo expedita quisquam hic repudiandae ipsa culpa
+        assumenda, ratione facilis.
+      </p>
+      <p>
+        FUEN54 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ullam
+        ducimus doloribus quasi ex, perspiciatis vel quae animi hic illo. Rem,
+        iusto consequuntur! Voluptas distinctio minus, eum officia numquam
+        maxime earum?
+      </p>
+      <p>
+        <span>hello!!!!</span>empty Lorem ipsum dolor, sit amet consectetur
+        adipisicing elit. Sint natus repudiandae vero amet a deserunt ex itaque
+        cum doloremque aliquam sunt atque, similique impedit veniam voluptas.
+        Voluptatibus libero veritatis porro?
+      </p>
+      <p></p>
+
+      <input type="radio" name="radioGroup" value="A" />我很帥A
+      <input type="radio" name="radioGroup" value="A" />我超帥B
+      <input type="checkbox" name="checkboxGroup" value="1" />1
+      <input type="checkbox" name="checkboxGroup" value="2" />2
+      <input type="checkbox" name="checkboxGroup" value="3" />3
+      <select name="" id="">
+        <option value="C" disabled>C</option>
+        <option value="D" disabled>D</option>
+      </select>
+      <br />
+      <button id="checked">:checked</button>
+      <button id="disabled">:disabled</button>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        // console.log($("h1"));
+        // console.log($("#list"));
+        // console.log($(".list"));
+        // console.log($("*")); //取全部, 好像用不到
+
+        //filter
+        // n從0開始 全部ul只算一個組, 不會分開算
+        // :eq(n) 索引值等於n (equal)
+        // $("li:eq(3)").css("background", "pink"); //找到li index為1的東東
+        // // :lt(n) 索引值小於n (less than)
+        // $("li:lt(3)").css("background", "red");
+        // // :gt(n) 索引值大於n (greater than)
+        // $("li:gt(3)").css("background", "blue");
+        // :not(.filter)  反選
+        // $("li:not(.not)").css("background", "green");
+
+        // //內文選擇器
+        // $('p:contains("FUEN54")').css("background", "pink");
+        // $('li:contains("FUEN54")').css("background", "pink");
+
+        // $("p:has(span)").css("background", "red");
+        // $('span:contains("hello")').css("background", "yellow");
+        // $("p:empty").text("empty text");
+        // $("p:parent").css("background", "purple");
+
+        //子元素選擇器  以一組一組ul為單位
+        // $("li:first-child").css("background", "yellow");
+        // $("li:last-child").css("background", "pink");
+        //:nth-child(n) n從1開始!
+        // $("li:nth-child(3)").css("background", "black");
+
+        //index()取出索引值
+        // $("li").on("mouseenter", function () {
+        //   console.log($(this).index());
+        // });
+
+        //表單選擇器
+        $("#checked").on("click", function () {
+          console.log($(":checked"));
+        });
+        $("#disabled").on("click", function () {
+          console.log($(":disabled"));
+        });
+
+        //filtering
+        $("li").eq(1).css("background", "lightgreen");
+      });
+    </script>
+  </body>
+</html>

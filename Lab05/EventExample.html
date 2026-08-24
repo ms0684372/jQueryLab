@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      .menu {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        margin: 30px;
+      }
+      .menu > li {
+        padding: 10px 20px;
+        position: relative;
+        background-color: lightgray;
+      }
+      .submenu {
+        list-style: none;
+        background-color: brown;
+        padding: 0;
+        margin: 0;
+        position: absolute;
+        left: 0;
+        width: 100px;
+        text-align: center;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Event Example</h1>
+    </header>
+    <div class="container">
+      <ul class="menu">
+        <li>
+          課程介紹
+          <ul class="submenu">
+            <li>C#班</li>
+            <li>JAVA班</li>
+            <li>JS</li>
+          </ul>
+        </li>
+        <li>
+          作品展示
+          <ul class="submenu">
+            專題介紹
+            <li>a</li>
+            <li>b</li>
+          </ul>
+        </li>
+      </ul>
+
+      <label for="inputPwd">密碼驗證:</label>
+      <input type="text" id="inputPwd" />
+      <span id="pwdResult"></span>
+      <ol>
+        <li>不可有空白</li>
+        <li>必須超過6個字</li>
+        <li>必須要有英文</li>
+        <li>必須要有數字</li>
+        <li>必須要有特殊字元[!@#$%^&*]</li>
+      </ol>
+      <hr />
+      <div style="display: inline-block">
+        <input
+          type="text"
+          class="inputCredit"
+          maxlength="4"
+          style="width: 50px"
+        />
+      </div>
+      <div style="display: inline-block">
+        <input
+          type="text"
+          class="inputCredit"
+          maxlength="4"
+          style="width: 50px"
+        />
+      </div>
+      <div style="display: inline-block">
+        <input
+          type="text"
+          class="inputCredit"
+          maxlength="4"
+          style="width: 50px"
+        />
+      </div>
+      <div style="display: inline-block">
+        <input
+          type="text"
+          class="inputCredit"
+          maxlength="4"
+          style="width: 50px"
+        />
+      </div>
+      <hr />
+      <h3>留言</h3>
+      <textarea name="" id="comment" rows="5" cols="40"></textarea>
+      <p>目前字數: <span id="count">0</span></p>
+
+      <hr />
+      <select name="" id="payment">
+        <option value="">請選擇</option>
+        <option value="credit">信用卡</option>
+        <option value="cash">現金</option>
+      </select>
+
+      <div id="creditCard">
+        信用卡資訊
+        <input type="text" style="width: 50px" />
+        <input type="text" style="width: 50px" />
+        <input type="text" style="width: 50px" />
+        <input type="text" style="width: 50px" />
+      </div>
+      <div id="cash">現金支付</div>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        /*
+        element.value
+        .val()
+
+        .textContent .innerText .innerHtml
+        .text()
+        */
+
+        const slideSpeed = 100;
+        $(".menu >li")
+          .mouseenter(function () {
+            $(this).find(".submenu").slideDown(slideSpeed);
+          })
+          .mouseleave(function () {
+            $(this).find(".submenu").slideUp(slideSpeed);
+          });
+
+        const inputPwd = $("#inputPwd");
+        inputPwd.blur(function (event) {
+          const pwdValue = inputPwd.val();
+          if (pwdValue.length <= 6) {
+            $("#pwdResult").text("長度不足");
+            return;
+          }
+          if (pwdValue.indexOf(" ") > -1) {
+            $("#pwdResult").text("不可以包含空白");
+            return;
+          }
+
+          let regexpEng = new RegExp(/[A-Z]/i);
+          console.log("eng:" + regexpEng.test(pwdValue));
+          if (!regexpEng.test(pwdValue)) {
+            $("#pwdResult").text("需包含任意英文字母");
+            return;
+          }
+          let regexpNum = new RegExp(/[0-9]/);
+          console.log("num:" + regexpNum.test(pwdValue));
+          if (!regexpNum.test(pwdValue)) {
+            $("#pwdResult").text("需包含任意數字");
+            return;
+          }
+
+          let regexpSymbols = new RegExp(/[@!#$%^&*]/);
+          console.log("symbols:" + regexpSymbols.test(pwdValue));
+          if (!regexpSymbols.test(pwdValue)) {
+            $("#pwdResult").text("需包含特殊字元[!@#$%^&*]");
+            return;
+          }
+
+          $("#pwdResult").text("好耶, 這是一個成功的密碼");
+        });
+        //-----------------------------------------------------------------------------------------
+        const inputCredits = $(".inputCredit");
+        // console.log(inputCredits);
+        // for (let i = 0; i < inputCredits.length - 1; i++) {
+        //   let inputCredit = $(inputCredits[i]);
+        //   inputCredit.keyup(function () {
+        //     const val = inputCredit.val();
+        //     // console.log(val);
+        //     inputCredit.val(val.replace(/[^0-9]/g, ""));
+        //     if (inputCredit.val().length >= 4) {
+        //       inputCredit.parent().next().children(".inputCredit").focus();
+        //     }
+        //   });
+        // }
+
+        inputCredits.keyup(function () {
+          this.value = this.value.replace(/[^0-9]/g, "");
+          if ($(this).val().length == 4) {
+            $(this).parent().next().children(".inputCredit").focus();
+          }
+        });
+
+        //-----------------------------------------------------------------------------------
+        $("#comment").keyup((event) => {
+          $("#count").text($(event.target).val().length);
+        });
+        //-----------------------------------------------------------------------------------
+        //change範例
+        $("#creditCard, #cash").hide();
+        $("#payment").change(function () {
+          $("#creditCard, #cash").hide();
+          if ($(this).val() == "credit") {
+            $("#creditCard").show();
+          } else if ($(this).val() == "cash") {
+            $("#cash").show();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
