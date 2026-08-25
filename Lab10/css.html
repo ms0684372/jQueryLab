@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      .target {
+        width: 100px;
+        height: 100px;
+        border: 2px solid black;
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+      .circle {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: inline-block;
+        margin: 5px;
+      }
+      .wrap {
+        width: 800px;
+        height: 400px;
+        background-color: lightgray;
+        border: 2px solid black;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>css()</h1>
+    </header>
+    <div class="container">
+      <div class="wrap">
+        <div class="target"></div>
+      </div>
+      <hr />
+      <div class="circle" style="background-color: red"></div>
+      <div class="circle" style="background-color: orange"></div>
+      <div class="circle" style="background-color: yellow"></div>
+      <div class="circle" style="background-color: green"></div>
+      <div class="circle" style="background-color: blue"></div>
+      <div class="circle" style="background-color: blueviolet"></div>
+      <div class="circle" style="background-color: purple"></div>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      $(function () {
+        //js code
+        /*
+          css('樣式名稱','樣式值')設定
+          css('樣式名稱')讀取
+          css({
+            '樣式名稱':'樣式值',
+            '樣式名稱':'樣式值',
+            '樣式名稱':'樣式值',
+          })
+
+
+        */
+
+        const bgc = "background-color";
+        const target = $(".target");
+        $(".circle").mouseenter(function () {
+          let color = $(this).css(bgc);
+          console.log(color);
+          target.css("background-color", color);
+        });
+
+        document.onkeydown = function (e) {
+          let top = parseInt(target.css("top"));
+          let left = parseInt(target.css("left"));
+          console.log(`top:${top}, left:${left}`);
+          switch (e.keyCode) {
+            case 38: //up
+              console.log("up");
+              top -= 30;
+              if (top < 0) {
+                top = 0;
+              }
+              break;
+            case 40: //down
+              console.log("down");
+              top += 30;
+              const topLimit =
+                parseInt($(".wrap").css("height")) -
+                parseInt(target.css("height"));
+              if (top > topLimit) {
+                top = topLimit;
+              }
+              break;
+            case 37: //left
+              console.log("left");
+              left -= 30;
+              if (left < 0) {
+                left = 0;
+              }
+              break;
+            case 39: //right
+              console.log("right");
+              left += 30;
+              const leftLimit =
+                parseInt($(".wrap").css("width")) -
+                parseInt(target.css("width"));
+              if (left > leftLimit) {
+                left = leftLimit;
+              }
+              break;
+          }
+          console.log(`top:${top}, left:${left}`);
+
+          $(".target").css({
+            left: left + "px",
+            top: top + "px",
+            background: "pink",
+          });
+        };
+      });
+    </script>
+  </body>
+</html>

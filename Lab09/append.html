@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      table {
+        width: 500px;
+        border: 2px solid black;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>apend() prepend() after() before()</h1>
+    </header>
+    <div class="container">
+      <button id="prepend">prepend</button>
+      <button id="prependTo">prependTo</button>
+
+      <button id="append">append</button>
+      <button id="appendTo">appendTo</button>
+
+      <button id="after">after</button>
+      <button id="before">before</button>
+
+      <button id="insertAfter">insertAfter</button>
+      <button id="insertBefore">insertBefore</button>
+
+      <button id="empty">empty</button>
+      <button id="remove">remove</button>
+      <hr />
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr id="move">
+            <td>0 Apple</td>
+            <td>apple123@gmail.com</td>
+            <td>0900123456</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      $(function () {
+        //js code
+        let i = 1;
+        $("#prepend").click(() => {
+          let content = ` 
+          <tr>
+            <td>${i++} prepend</td>
+            <td>apple123@gmail.com</td>
+            <td>0900123456</td>
+          </tr>`;
+          $("tbody").prepend(content);
+        });
+
+        $("#append").click(() => {
+          let content = ` 
+          <tr>
+            <td>${i++} append</td>
+            <td>apple123@gmail.com</td>
+            <td>0900123456</td>
+          </tr>`;
+          $("tbody").append(content);
+        });
+
+        //將指定元素移動至最前面
+        $("#prependTo").click(() => {
+          $("#move").prependTo("tbody");
+        });
+
+        //將指定元素移動至最後面
+        $("#appendTo").click(() => {
+          $("#move").appendTo("tbody");
+        });
+
+        //在指定元素後面新增
+        $("#after").click(() => {
+          $("#move").after(` 
+          <tr>
+            <td>${i++} after</td>
+            <td>apple123@gmail.com</td>
+            <td>0900123456</td>
+          </tr>`);
+        });
+
+        //在指定元素前面新增
+        $("#before").click(() => {
+          $("#move").before(` 
+          <tr>
+            <td>${i++} before</td>
+            <td>apple123@gmail.com</td>
+            <td>0900123456</td>
+          </tr>`);
+        });
+
+        //在指定元素後面新增
+        $("#insertAfter").click(() => {
+          $(`
+          <tr>
+            <td>${i++} insertAfter</td>
+            <td>apple123@gmail.com</td>
+            <td>0900123456</td>
+          </tr>`).insertAfter($("#move"));
+        });
+
+        //在指定元素前面新增
+        $("#insertBefore").click(() => {
+          $(`
+          <tr>
+            <td>${i++} insertBfter</td>
+            <td>apple123@gmail.com</td>
+            <td>0900123456</td>
+          </tr>`).insertBefore($("#move"));
+        });
+
+        //清空裡面的東東
+        $("#empty").click(() => {
+          $("tbody").empty();
+        });
+
+        //會直接移除這個東西
+        $("#remove").click(() => {
+          $("tbody").remove();
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      .box {
+        height: 100px;
+        background-color: pink;
+      }
+      .box.active {
+        background-color: lightblue;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>attr() prop() addClass()</h1>
+    </header>
+    <div class="container">
+      <img src="../images/Kedaya.jpg" alt="duck" title="可達鴨" />
+      <br />
+      <button id="getAttr">get Attr</button>
+      <button id="setAttr">set Attr</button>
+      <hr />
+      <input type="checkbox" name="" id="checkbox" />
+      <br />
+      <button id="confirm" disabled>confirm</button>
+      <br />
+      <button id="getProp">get Prop</button>
+      <button id="setProp">set Prop</button>
+      <hr />
+      <div class="box"></div>
+      <button id="addClass">addClass</button>
+      <button id="removeClass">removeClass</button>
+      <button id="toggleClass">toggleClass</button>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        $("#getAttr").click(() => {
+          console.log(`
+            img-alt:${$("img").attr("alt")},
+            img-title:${$("img").attr("title")},
+            img-src:${$("img").attr("src")}`);
+        });
+
+        $("#setAttr").click(() => {
+          $("img").attr("style", "width:300px");
+        });
+
+        $("#getProp").click(() => {
+          console.log($("#checkbox").prop("checked"));
+        });
+
+        $("#setProp").click(() => {
+          let checked = $("#checkbox").prop("checked");
+          $("#checkbox").prop("checked", true);
+        });
+
+        $("#checkbox").click((e) => {
+          console.log($("#confirm"));
+          $("#confirm").prop("disabled", !$(e.target).prop("checked"));
+        });
+
+        $("#addClass").click(() => {
+          console.log("add");
+          $(".box").addClass("active");
+        });
+
+        $("#removeClass").click(() => {
+          console.log("remove");
+          $(".box").removeClass("active");
+        });
+
+        $("#toggleClass").click(() => {
+          console.log("toggle");
+          $(".box").toggleClass("active");
+        });
+      });
+    </script>
+  </body>
+</html>
