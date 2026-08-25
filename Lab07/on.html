@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>On事件</h1>
+    </header>
+    <div class="container">
+      <button id="btn1">Button 1</button>
+      <button id="btn2">Button 2</button>
+      <hr />
+      <button class="btnGroup" id="on">on</button>
+      <button class="btnGroup" id="off">off</button>
+      <button class="btnGroup" id="one">one</button>
+      <hr />
+      <button id="add">add</button>
+      <ul>
+        <li>item 1</li>
+        <li>item 2</li>
+      </ul>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      $(function () {
+        //js code
+        /*
+          單一事件綁單一函數
+            on('事件', 函數)
+            on('事件', 參數:監聽子元素, 函數)這種要綁父物件
+          多個事件綁單一函數
+
+          多個事件綁多個函數
+        */
+
+        $("#btn1").on("click contextmenu mouseenter", function () {
+          console.log("hello");
+        });
+
+        $("#btn2").on({
+          click: function () {
+            console.log("click");
+          },
+          contextmenu: function () {
+            console.log("right click");
+          },
+          mouseenter: function () {
+            console.log("mouse enter");
+          },
+        });
+
+        let sayHello = () => {
+          console.log("hello");
+        };
+
+        $("#on").click(() => {
+          $(".btnGroup").on("click", sayHello);
+        });
+
+        $("#off").click(() => {
+          $(".btnGroup").off("click", sayHello);
+        });
+
+        $("#one").one("click", function () {
+          console.log("one");
+        });
+
+        //動態綁定
+        let i = 3;
+        $("#add").on("click", function () {
+          $("ul").append(`<li>item ${i}</li>`);
+          i++;
+        });
+
+        // $("li").on("click", () => {
+        //   console.log("hello");
+        // });
+
+        //讓ul底下的每個li都可以綁定事件, 動態新增的也可以
+        $("ul").on("click", "li", function () {
+          console.log("li click");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -28,6 +28,34 @@
         text-align: center;
         display: none;
       }
+
+      .card-wrap {
+        display: flex;
+      }
+
+      .card {
+        width: 200px;
+        background-color: lightsalmon;
+        border: 1px solid lightgray;
+        border-radius: 10px;
+        padding: 15px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .content {
+        padding: 15px;
+      }
+
+      .detail {
+        background-color: red;
+        color: white;
+        width: 200px;
+        padding: 15px;
+        position: absolute;
+        left: 0;
+        top: 200px;
+      }
     </style>
   </head>
   <body>
@@ -53,7 +81,25 @@
           </ul>
         </li>
       </ul>
+      <hr />
+      <div class="cardWrap">
+        <div class="card">
+          <div class="content">
+            <h3>麥克轟</h3>
+            <p>$599</p>
+          </div>
+          <div class="detail">限時優惠6折</div>
+        </div>
 
+        <div class="card">
+          <div class="content">
+            <h3>dan競筆dan</h3>
+            <p>$39999</p>
+          </div>
+          <div class="detail">熱銷商品</div>
+        </div>
+      </div>
+      <hr />
       <label for="inputPwd">密碼驗證:</label>
       <input type="text" id="inputPwd" />
       <span id="pwdResult"></span>
@@ -138,7 +184,17 @@
           .mouseleave(function () {
             $(this).find(".submenu").slideUp(slideSpeed);
           });
+        //------------------------------------------------------------------------
+        console.log($(".card"));
+        $(".card").mouseenter(function (e) {
+          $(this).find(".detail").css("top", "120px");
+        });
 
+        $(".card").mouseleave(function (e) {
+          $(e.target).find(".detail").css("top", "200px");
+        });
+
+        //------------------------------------------------------------------------
         const inputPwd = $("#inputPwd");
         inputPwd.blur(function (event) {
           const pwdValue = inputPwd.val();
@@ -157,6 +213,7 @@
             $("#pwdResult").text("需包含任意英文字母");
             return;
           }
+
           let regexpNum = new RegExp(/[0-9]/);
           console.log("num:" + regexpNum.test(pwdValue));
           if (!regexpNum.test(pwdValue)) {

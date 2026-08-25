@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      .resize {
+        width: 400px;
+        height: 300px;
+        position: absolute;
+      }
+      img {
+        width: 400px;
+        height: 300px;
+        position: absolute;
+      }
+      p {
+        width: 500px;
+        border: 2px solid black;
+        padding: 20px;
+        margin: 20px;
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Resize</h1>
+    </header>
+    <div class="container">
+      <p></p>
+      <div class="resize">
+        <img src="../images/Kedaya.jpg" alt="" />
+      </div>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        let p = $("p");
+        p.text(
+          `innerWidth:${p.innerWidth()},
+          outerWidth:${p.outerWidth()}, 
+          outerWidth(true):${p.outerWidth(true)}`,
+        );
+
+        $(window).resize(resizeImg);
+        resizeImg();
+        function resizeImg() {
+          let windowWidth = $(window).width();
+          let windowHeight = $(window).height();
+          let divWidth = $(".resize").width();
+          let divHeight = $(".resize").height();
+          let left = (windowWidth - divWidth) * 0.5;
+          let top = (windowHeight - divHeight) * 0.5;
+          $(".resize").css({ left: left, top: top });
+        }
+      });
+    </script>
+  </body>
+</html>
