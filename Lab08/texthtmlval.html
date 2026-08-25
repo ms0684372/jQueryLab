@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>text() html() val()</h1>
+    </header>
+    <div class="container">
+      <h3 id="target" jQuery>jQuery</h3>
+      <hr />
+      <p>click to <b>change</b> <span>the html</span></p>
+      <button id="setHtml">setHtml</button>
+      <hr />
+      <input
+        type="number"
+        name=""
+        id="inputLeft"
+        value="0"
+        style="text-align: right"
+      />
+      <select name="" id="calOperator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+
+      <input
+        type="number"
+        id="inputRight"
+        value="0"
+        style="text-align: right"
+      />
+      <button id="btnResult">=</button>
+      <input type="number" name="" id="inputResult" />
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      $(function () {
+        //js code
+        /*
+        text()      get:讀取文字
+        text(value)  set
+
+        html()      get:讀取文字+標籤
+        html(value)  set:設定文字+標籤
+
+        val()       get:讀取value
+        val(value)  set:設定value
+        */
+
+        console.log($("#target").text());
+
+        $("p").one("click", function () {
+          let htmlContent = $("p").html();
+          $(this).text(htmlContent);
+        });
+
+        $("#setHtml").click(() => {
+          $("p").html("<h1>jQuery</h1>");
+        });
+
+        $("#btnResult").on("click", function () {
+          const left = parseInt($("#inputLeft").val());
+          const right = parseInt($("#inputRight").val());
+          const operator = $("#calOperator").val();
+          console.log(left);
+          console.log(right);
+          console.log(operator);
+
+          let result;
+          switch (operator) {
+            case "+":
+              result = left + right;
+              break;
+            case "-":
+              result = left - right;
+              break;
+            case "*":
+              result = left * right;
+              break;
+            case "/":
+              if (right == 0) {
+                alert("除數不得為0");
+                return;
+              }
+              result = left / right;
+              break;
+          }
+
+          $("#inputResult").val(result);
+        });
+      });
+    </script>
+  </body>
+</html>
