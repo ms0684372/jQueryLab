@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      table {
+        width: 500px;
+        border: 2px solid black;
+        text-align: center;
+        margin: 5px;
+      }
+      .rowInput:read-only {
+        border: 1px solid transparent;
+        background-color: transparent;
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>加強版 記事本</h1>
+    </header>
+    <div class="container">
+      <input type="text" placeholder="請輸入姓名" name="" id="txtName" />
+      <input type="text" placeholder="請輸入內容" name="" id="txtContent" />
+      <button id="btnAdd">add</button>
+      <p>未完成事情: <span id="resultNotFinished">0</span></p>
+      <p>已完成事情: <span id="resultFinished">0</span></p>
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="checkAll" /></th>
+            <th>Name</th>
+            <th>Content</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody id="contentList"></tbody>
+      </table>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        const contentList = $("#contentList");
+        const resultFinished = $("#resultFinished");
+        const resultNotFinished = $("#resultNotFinished");
+
+        function refreshCount() {
+          console.log("refreshCount");
+          const rowChecks = $(".rowCheck");
+          let countFinished = 0,
+            countNotYet = 0;
+          console.log(rowChecks);
+          for (let i = 0; i < rowChecks.length; i++) {
+            if ($(rowChecks[i]).prop("checked")) {
+              countFinished++;
+            } else {
+              countNotYet++;
+            }
+          }
+
+          resultFinished.text(countFinished);
+          resultNotFinished.text(countNotYet);
+          $("#checkAll").prop("checked", rowChecks.length > 0 && rowChecks.length === countFinished);
+        }
+
+        $("#checkAll").click(function () {
+          $("tbody .rowCheck").prop("checked", $(this).prop("checked"));
+        });
+
+        $("#contentList").on("click", ".rowCheck", function (e) {
+          refreshCount();
+        });
+
+        $("#contentList").on("click", ".rowEdit", function (e) {
+          let readonly = !$(e.target).closest("tr").find(".rowName").prop("readonly");
+          $(e.target).closest("tr").find(".rowInput").prop("readonly", readonly);
+          $(e.target).text(readonly ? "編輯" : "保存");
+        });
+
+        $("#contentList").on("click", ".rowDelete", function (e) {
+          if (window.confirm("確定要刪除嗎?")) {
+            $(e.target).closest("tr").remove();
+            refreshCount();
+          }
+        });
+
+        $("#btnAdd").click(function (e) {
+          const row = contentList.append(
+            `<tr class="row">
+              <td><input type="checkbox" class="rowCheck"></td>
+              <td><input type="text" class="rowName rowInput" value="${$("#txtName").val()}" readonly></td>
+              <td><input type="text" class="rowContent rowInput" value="${$("#txtContent").val()}" readonly></td>
+              <td class="rowBtns">
+                <button class="rowEdit">修改</button>
+                <button class="rowDelete">刪除</button>
+              </td>
+            </tr>`,
+          );
+
+          refreshCount();
+        });
+      });
+    </script>
+  </body>
+</html>

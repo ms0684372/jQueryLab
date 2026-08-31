@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SlideShow</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      .wrap {
+        background-color: red;
+        width: 225px;
+        height: 400px;
+        position: relative;
+        margin: 0 auto;
+        overflow: hidden;
+      }
+      .ul-slide {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        /* left: -225px; */
+      }
+      .ul-slide li {
+        width: 225px;
+        height: 400px;
+      }
+      .ul-slide li img {
+        width: 225px;
+        height: 400px;
+        /* 調整內容比例 多於會被裁切 */
+        object-fit: cover;
+      }
+      .ul-pages {
+        position: absolute;
+        list-style: none;
+        /* background-color: red; */
+        padding: 0;
+        margin: 0;
+        display: flex;
+        bottom: 10px;
+        width: 100%;
+        justify-content: center;
+      }
+      .ul-pages li {
+        width: 20px;
+        height: 20px;
+        border: 1px solid black;
+        border-radius: 50%;
+        margin: 5px;
+      }
+      .arrow {
+        position: absolute;
+        z-index: 1;
+        color: rgba(0, 0, 0, 0.356);
+        font-size: 40px;
+
+        width: 46px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.6;
+        cursor: pointer;
+      }
+      .arrow:hover {
+        opacity: 1;
+      }
+      .right {
+        right: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>slideshow</h1>
+    </header>
+    <div class="container">
+      <div class="wrap">
+        <a id="btnPrevPic" class="arrow left"><i class="fa-regular fa-circle-left"></i></a>
+        <a id="btnNextPic" class="arrow right"><i class="fa-regular fa-circle-right"></i></a>
+        <ul class="ul-slide">
+          <li><img src="./imgs/slideshow_1.png" alt="" /></li>
+          <li><img src="./imgs/slideshow_2.png" alt="" /></li>
+          <li><img src="./imgs/slideshow_3.png" alt="" /></li>
+          <li><img src="./imgs/slideshow_4.png" alt="" /></li>
+          <li><img src="./imgs/slideshow_5.png" alt="" /></li>
+        </ul>
+
+        <ul class="ul-pages">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        /*
+          1.放第一章圖
+          2.放第五張圖
+            確認移動邏輯
+          3.設定分頁
+          4.設定左右箭頭 
+        */
+
+        $(".ul-pages li").eq(0).css("background", "black");
+
+        let index = 0;
+        $(".ul-pages li").mouseenter(function () {
+          index = $(this).index();
+          refreshUI();
+          resetTimer();
+        });
+
+        $("#btnPrevPic").click(function () {
+          index--;
+          if (index < 0) {
+            index = 4;
+          }
+          refreshUI();
+          resetTimer();
+        });
+
+        $("#btnNextPic").click(function () {
+          index++;
+          if (index >= 5) {
+            index = 0;
+          }
+          refreshUI();
+          resetTimer();
+        });
+
+        function refreshUI() {
+          let slideValue = 0 - index * 225;
+          $(".ul-slide").css("left", `${slideValue}px`);
+          $(".ul-pages li").eq(index).css("background", "black").siblings().css("background", "transparent");
+        }
+
+        let timer;
+        function startTimer() {
+          timer = setInterval(function () {
+            index++;
+            if (index >= 5) {
+              index = 0;
+            }
+            refreshUI();
+          }, 2000);
+        }
+
+        function resetTimer() {
+          clearInterval(timer);
+          startTimer();
+        }
+        startTimer();
+      });
+    </script>
+  </body>
+</html>

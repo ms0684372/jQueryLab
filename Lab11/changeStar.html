@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChangeStar</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>ChangeStar</h1>
+    </header>
+    <div class="container">
+      <!--  -->
+      <div>
+        <img src="imgs/star.gif" alt="" class="imgStars" />
+        <img src="imgs/star.gif" alt="" class="imgStars" />
+        <img src="imgs/star.gif" alt="" class="imgStars" />
+        <img src="imgs/star.gif" alt="" class="imgStars" />
+        <img src="imgs/star.gif" alt="" class="imgStars" />
+      </div>
+      <h3 id="resultText">目前0顆星</h3>
+      <button id="btnReset">重置星星</button>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        let isCheck = false;
+
+        $(".imgStars").click(function (e) {
+          setStar($(e.target).index());
+          isCheck = true;
+        });
+
+        let index = 0;
+        let status = true;
+        $(".imgStars").mouseenter(function (e) {
+          if (!isCheck) {
+            setStar($(e.target).index());
+          }
+        });
+
+        $(".imgStars").mouseleave(function (e) {
+          if (!isCheck) {
+            setStar(-1);
+          }
+        });
+
+        $("#btnReset").click(function (e) {
+          setStar(-1);
+          isCheck = false;
+        });
+
+        function setStar(index) {
+          const stars = $(".imgStars");
+          for (let i = 0; i < stars.length; i++) {
+            let path = i <= index ? "./imgs/chngstar.gif" : "./imgs/star.gif";
+            $(stars[i]).attr("src", path);
+            $("#resultText").text(`目前${index + 1}顆星`);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
