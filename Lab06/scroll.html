@@ -82,8 +82,28 @@
         });
 
         $(".top").click(function () {
-          $(window).scrollTop(0);
+          // $(window).scrollTop(0);
+          scrollToTop();
         });
+
+        function scrollToTop() {
+          let current = $(window).scrollTop();
+          const target = 0;
+          const speed = 0.2;
+          // console.log(current);
+
+          function animate() {
+            current = current + (target - current) * speed;
+            $(window).scrollTop(current);
+
+            if (Math.abs(current - target) > 0.5) {
+              requestAnimationFrame(animate);
+            } else {
+              $(window).scrollTop(0);
+            }
+          }
+          requestAnimationFrame(animate);
+        }
       });
     </script>
   </body>
