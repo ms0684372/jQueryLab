@@ -139,8 +139,9 @@
 
         function refreshUI() {
           let slideValue = 0 - index * 225;
-          $(".ul-slide").css("left", `${slideValue}px`);
           $(".ul-pages li").eq(index).css("background", "black").siblings().css("background", "transparent");
+          // $(".ul-slide").css("left", `${slideValue}px`);
+          $(".ul-slide").animate({ left: slideValue });
         }
 
         let timer;
