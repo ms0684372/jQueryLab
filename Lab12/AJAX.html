@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AJAX</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>AJAX</h1>
+    </header>
+    <div class="container">
+      <button id="btnAjax">ajax</button>
+      <table>
+        <thead>
+          <tr>
+            <th>縣市</th>
+            <th>時間</th>
+            <th>天氣狀態</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        /*
+          javascript fetch()
+          jQuery $.ajax()
+          axios api
+          ...
+
+          url:必須要設定
+          contentType: string csv/json
+          data:附帶資料
+          type:GET POST PUT DELETE
+          success:函數
+          error:函數
+        */
+        const url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/F-C0032-001?Authorization=CWA-F04BC326-C9B9-4EDD-B382-BA88D613B2E3";
+
+        $("#btnAjax").click(function () {
+          $.ajax({
+            url: url,
+            type: "GET",
+            success: function (response) {
+              console.log(response);
+
+              $.each(response.records.location, function (index, ele) {
+                console.log(ele);
+                const weatherElement = ele.weatherElement[0];
+                $("tbody").append(
+                  `<tr>
+                    <td>${ele.locationName}</td>
+                    <td>${weatherElement.time[0].startTime}</td>
+                    <td>${weatherElement.time[0].parameter.parameterName}</td>
+                  </tr>`,
+                );
+              });
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

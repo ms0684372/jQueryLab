@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- https://animate.style/ -->
+    <!-- https://animista.net/ -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="../Style/style.css" />
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: pink;
+      }
+      .box2 {
+        width: 100px;
+        height: 100px;
+        background-color: lightblue;
+        position: relative;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Animate</h1>
+    </header>
+    <div class="container">
+      <button id="show">show</button>
+      <button id="hide">hide</button>
+      <button id="slideUp">slideUp</button>
+      <button id="slideDown">slideDown</button>
+      <button id="fadeOut">fadeOut</button>
+      <button id="fadeIn">fadeIn</button>
+      <div class="box"></div>
+
+      <hr />
+      <button id="moveRight">right</button>
+      <button id="moveLeft">left</button>
+      <div class="box2"></div>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        /*
+                show/hide/toggle
+                slideUp/slideDown/slideToggle
+                fadeIn/fadeOut/fadeToggle
+              */
+        $("#hide").click(function () {
+          $(".box").hide(1000);
+        });
+
+        $("#show").click(function () {
+          $(".box").show(1000);
+        });
+
+        $("#slideUp").click(function () {
+          $(".box").slideUp(1000);
+        });
+
+        $("#slideDown").click(function () {
+          $(".box").slideDown(1000);
+        });
+
+        $("#fadeOut").click(function () {
+          $(".box").fadeOut(1000);
+        });
+
+        $("#fadeIn").click(function () {
+          $(".box").fadeIn(1000);
+        });
+
+        $("#moveRight").click(function () {
+          $(".box2")
+            .animate(
+              {
+                left: 500,
+                height: 300,
+                width: 300,
+                "border-radius": "50%",
+              },
+              500,
+            )
+            .animate({ top: 500 }, 500)
+            .animate({ left: 0 }, 500)
+            .animate({ top: 0 }, 500);
+        });
+
+        $("#moveLeft").click(function () {
+          $(".box2").animate(
+            {
+              left: 100,
+              height: 100,
+              width: 100,
+              "border-radius": "0%",
+            },
+            500,
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

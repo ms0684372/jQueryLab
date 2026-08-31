@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-hant-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>other api</title>
+    <link rel="stylesheet" href="../Style/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>其他API</h1>
+    </header>
+    <div class="container">
+      <table>
+        <tbody>
+          <tr>
+            <td>10</td>
+            <td>20</td>
+            <td>30</td>
+            <td>12</td>
+          </tr>
+        </tbody>
+      </table>
+      <hr />
+      <button class="btn" data-name="apple" data-age="32" data-test="appletest">Apple</button>
+      <button class="btn" data-name="banana" data-age="25" data-test="bababa">banana</button>
+      <div class="target"></div>
+    </div>
+    <script src="../jquery-4.0.0.js"></script>
+    <script>
+      //js code
+      $(function () {
+        //each()
+        let arr = ["FUEN54", "jQuery", "F305"];
+        $.each(arr, function (index, element) {
+          console.log(`${index}, ${element}`);
+        });
+
+        let sum = 0;
+        $("td").each(function () {
+          sum += parseInt($(this).text());
+        });
+        console.log(`sum:${sum}`);
+
+        // inArray()搜尋索引值
+        let arr2 = [1, 2, 3, 4, 5];
+        console.log($.inArray(7, arr2)); //-1
+        console.log($.inArray(1, arr2)); //0
+
+        class Product {
+          constructor(name, category) {
+            this.name = name;
+            this.category = category;
+          }
+        }
+        let productList = [new Product("捧購", "水果"), new Product("香蕉", "水果"), new Product("歡茄", "蔬菜"), new Product("草莓", "水果")];
+
+        //map() 產生一個新陣列, 包含指定陣列的欄位
+        let nameList = $.map(productList, function (item, index) {
+          return item.name;
+        });
+        console.log(nameList);
+        //grep() 產生一個新陣列 設定條件回傳陣列 (看起來跟C# List的Find很像)
+        let fruitList = $.grep(productList, function (item, index) {
+          return item.category === "水果";
+        });
+        console.log(fruitList);
+
+        // data()
+        $(".btn").click(function () {
+          let name = $(this).data("name"),
+            age = $(this).data("age"),
+            test = $(this).data("test");
+          $(".target").text(`${name} age is ${age}, test:${test}`);
+        });
+      });
+    </script>
+  </body>
+</html>
